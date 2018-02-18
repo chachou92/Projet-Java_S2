@@ -1,10 +1,27 @@
 package com.company;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        //On parcourt tous les fichiers et on unzip les fichiers .zip
+        File repertoire = new File(System.getProperty("user.dir"));
+        String[] nomFichiers = repertoire.list();
 
-
-	// write your code here
+        for (int i =0; i<nomFichiers.length;i++){
+            System.out.println("ici "+i + " " + nomFichiers[i]);
+            if(nomFichiers[i].contains(".zip")){
+                System.out.println("c'est la "+i + " " + nomFichiers[i]);
+                DecompressionZip d = new DecompressionZip("user.dir/"+ nomFichiers[i]);
+                d.dezip();
+            }
+        }
     }
 }

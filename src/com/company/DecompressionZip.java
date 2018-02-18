@@ -1,48 +1,48 @@
 package com.company;
 
 import java.io.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.lang.Runtime;
 
 /**
  * Gere la décompression du fichier Soumission.zip
  */
 public class DecompressionZip {
+    public  String PathProjet;
+
+    /**
+     * Constructeur de la classe DecompressionZip
+     * @param nom
+     */
+    public DecompressionZip(String nom){
+        PathProjet = nom;
+    }
+
+    /**
+     * Verifie si le fichier est au format ".zip"
+     */
+    public boolean testFormat(){
+        return PathProjet.contains(".zip");
+    }
 
     /**
      * Decompresse le fichier zip
      */
-    public static void dezip() throws IOException {
-        //Ouvre le fichier zip
-        File file = new File(System.getProperty("user.dir") + "/Soumission.zip");
-        InputStream in = new FileInputStream(file);
-        //Cree un ZipInputsream pour lire le fichier zip
-        ZipInputStream zipInputStream = new ZipInputStream(in);
-        //Extrait les fichiers du repertoire Soumission
-        ZipEntry ent = null;
-        try {
-
-            //Tant qu'il reste des fichiers dans le repertoire
-            while ((ent = zipInputStream.getNextEntry()) != null) {
-
-                // On cree un fichier
-                String nom = ent.getName();
-                File f = new File(System.getProperty("user.dir") + "/" + nom);
-                InputStream is = new FileInputStream(f);
-                //On ecrit dans ce fichier a partir du fichier zip
-                InputStreamReader inputStreamReader = new InputStreamReader(is);
-                BufferedReader br = new BufferedReader(inputStreamReader);
-                String line = "";
-                String fichier = "";
-                while (line != null) {
-                    line = br.readLine();
-                    fichier = fichier + line + "\n";
-                }
+    public void dezip() throws IOException {
+        if(testFormat()) {
+            try {
+                //Unzip le fichier zip
+                Runtime runtime = Runtime.getRuntime();
+                Process process = runtime.exec("unzip " + PathProjet);
+                process.waitFor();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Erreur dans la lecture du fichier zip");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-        catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Erreur dans la lecture du fichier");
+        else {
+            System.out.println("Le fichier entré n'est pas au format '.zip', merci de verifier le nom du fichier a tester.");
         }
     }
 }
