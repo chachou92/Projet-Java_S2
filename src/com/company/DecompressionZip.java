@@ -34,6 +34,15 @@ public class DecompressionZip {
                 Runtime runtime = Runtime.getRuntime();
                 Process process = runtime.exec("unzip " + PathProjet);
                 process.waitFor();
+                //Affiche la sortie d'erreur
+                InputStream in = new ByteArrayInputStream(process.getErrorStream().readAllBytes());
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    System.out.println(line);
+                }
+                br.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Erreur dans la lecture du fichier zip");

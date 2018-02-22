@@ -19,7 +19,7 @@ public class Main {
             System.out.println("ici "+i + " " + nomFichiers[i]);
             if(nomFichiers[i].contains(".zip")){
                 System.out.println("c'est la "+i + " " + nomFichiers[i]);
-                DecompressionZip d = new DecompressionZip("user.dir/"+ nomFichiers[i]);
+                DecompressionZip d = new DecompressionZip(nomFichiers[i]);
                 d.dezip();
             }
         }
