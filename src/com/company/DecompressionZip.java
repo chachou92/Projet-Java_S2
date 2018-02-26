@@ -7,21 +7,25 @@ import java.lang.Runtime;
  * Gere la décompression du fichier Soumission.zip
  */
 public class DecompressionZip {
-    public  String PathProjet;
+    public  String pathProjet;
 
     /**
      * Constructeur de la classe DecompressionZip
      * @param nom
      */
     public DecompressionZip(String nom){
-        PathProjet = nom;
+        pathProjet = nom;
+    }
+    public DecompressionZip(){
+        pathProjet = "";
     }
 
     /**
      * Verifie si le fichier est au format ".zip"
+     * @return true si le fichier est au format .zip, false sinon
      */
     public boolean testFormat(){
-        return PathProjet.contains(".zip");
+        return pathProjet.contains(".zip");
     }
 
     /**
@@ -32,7 +36,7 @@ public class DecompressionZip {
             try {
                 //Unzip le fichier zip
                 Runtime runtime = Runtime.getRuntime();
-                Process process = runtime.exec("unzip " + PathProjet);
+                Process process = runtime.exec("unzip -d TestProjets " + pathProjet);
                 process.waitFor();
                 //Affiche la sortie d'erreur
                 InputStream in = new ByteArrayInputStream(process.getErrorStream().readAllBytes());
