@@ -1,23 +1,28 @@
 package com.company;
 
+import javax.print.DocFlavor;
 import java.io.*;
 import java.lang.Runtime;
+import java.nio.file.Path;
 
 /**
  * Gere la décompression du fichier Soumission.zip
  */
 public class DecompressionZip {
     public  String pathProjet;
+    public String repertoire;
 
     /**
      * Constructeur de la classe DecompressionZip
      * @param nom
      */
-    public DecompressionZip(String nom){
+    public DecompressionZip(String nom, String rep){
         pathProjet = nom;
+        repertoire = rep;
     }
     public DecompressionZip(){
         pathProjet = "";
+        repertoire="";
     }
 
     /**
@@ -36,7 +41,7 @@ public class DecompressionZip {
             try {
                 //Unzip le fichier zip
                 Runtime runtime = Runtime.getRuntime();
-                Process process = runtime.exec("unzip -d TestProjets " + pathProjet);
+                Process process = runtime.exec("unzip -d "+ repertoire + " " +pathProjet);
                 process.waitFor();
                 //Affiche la sortie d'erreur
                 InputStream in = new ByteArrayInputStream(process.getErrorStream().readAllBytes());
@@ -53,9 +58,13 @@ public class DecompressionZip {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            catch (NullPointerException n){
+                n.printStackTrace();
+            }
         }
         else {
             System.out.println("Le fichier entré n'est pas au format '.zip', merci de verifier le nom du fichier a tester.");
         }
     }
+
 }

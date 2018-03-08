@@ -18,24 +18,14 @@ public class Compilation {
         nomProjet = "";
     }
 
-    /**
-     * Verifie si le fichier est au format ".java"
-     * @return true si le fichier est au format .java, false sinon
-     */
-    public boolean testFormat(){
-        return (nomProjet.contains(".java"));
-    }
-
-    /**
-     * Compile tous les fichiers '.java' qui sont dans le projet
+     /** Compile les fichiers Java
      * @throws IOException
      */
     public void compiler() throws IOException {
-        if(testFormat()){
             try{
                 //Compile le projet de nom "nomProjet"
                 Runtime runtime = Runtime.getRuntime();
-                Process process = runtime.exec("javac " + nomProjet+"/*.java");
+                Process process = runtime.exec("javac " + nomProjet );
                 process.waitFor();
                 //Affiche la sortie d'erreur
                 InputStream in = new ByteArrayInputStream(process.getErrorStream().readAllBytes());
@@ -52,12 +42,5 @@ public class Compilation {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-        else {
-            System.out.println("Le fichier entré n'est pas au format '.java', merci de verifier le nom du fichier a copmiler.");
-        }
     }
-
-
-
 }
