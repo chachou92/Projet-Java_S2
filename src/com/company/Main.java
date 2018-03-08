@@ -52,21 +52,20 @@ public class Main {
 
         //Demander si on veut executer des test Uni puis des Test Perf dans un menu
         //On compile les fichiers de test
-        File tests = new File(System.getProperty("user.dir") + "/TestPro");
+        /*File tests = new File(System.getProperty("user.dir") + "/TestPro");
         TestEnseignant t = new TestEnseignant(Paths.get("./")+"/TestPro");
-        //t.compileTest();
+        System.out.println("le path 1: "+t.nomRep);
         String[] testsList = tests.list();
         for (int i = 0; i < testsList.length; i++){
-            Path src = Paths.get(testsList[i].toString());
-            System.out.println(src.toString());
-            Path nv= Paths.get(System.getProperty("user.dir") + "/AAA");
+            Path src = Paths.get(t.nomRep+"/"+testsList[i]);
+            Path nv= Paths.get("./"+"AsterixObelix");
             Files.copy(src, nv.resolve(src.getFileName()));
-        }
+        }*/
+        TestEnseignant nw = new TestEnseignant("AsterixObelix");
+        System.out.println("le path 2: "+nw.nomRep);
+        nw.compileTest();
 
-      /*  //On copie les fichiers test et on les deplace vers le dossier du projet etudiant
-        Path src = Paths.get(tests.toString());
-        Path nv= Paths.get(System.getProperty("user.dir") + "/OrdreAlfabetix");
-        Files.copy(src, nv.resolve(src.getFileName()));*/
+
 
     }
 

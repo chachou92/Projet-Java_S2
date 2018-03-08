@@ -24,12 +24,13 @@ public class TestEnseignant {
     /**
      * Compile les classes contenant les tests unitaires du repertoire
      */
-    public void compileTest (){
+    public void compileTest () throws IOException {
 
         try{
             //Execute le projet de nom "nomProgrammet"
             Runtime runtime = Runtime.getRuntime();
-            Process process = runtime.exec("javac -classpath "+nomRep+" -cp .:junit-4.12.jar:hamcrest-core-1.3.jar *.java");
+            String[] str = {"/bin/sh","-c", "javac -cp "+nomRep+"/junit-4.12.jar:"+nomRep+"/hamcrest-core-1.3.jar:"+nomRep+" "+nomRep+"/*.java" };
+            Process process = runtime.exec(str);
             process.waitFor();
             //Affiche la sortie standard du programmme
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
