@@ -11,6 +11,7 @@ public class Execution {
     String classpath;
     String classExecute;
 
+
     /**
      * Constructeur de la classe Execution
      * @param classpath
@@ -27,27 +28,34 @@ public class Execution {
      * Execute le fichier
      * @throws IOException
      */
-    public void execution() throws IOException {
+    public String[] execution() throws IOException {
+        String[] tab = new String[2];
         try{
             //Execute le projet de nom "nomProgrammet"
             Runtime runtime = Runtime.getRuntime();
             String[] t = new String[]{"java", "-classpath", classpath, classExecute};
-            Process process = runtime.exec(t);
+            Process process = runtime.exec(t, null, new File(classpath));
             process.waitFor();
             //Affiche la sortie standard du programmme
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String l;
+            String inputstring = "";
             while((l = reader.readLine()) != null){
-                System.out.println(l);
+                //System.out.println(l);
+                inputstring+=l + "\n";
             }
+            tab[0] = inputstring;
             reader.close();
             //Affiche la sortie d'erreur
             InputStream in = new ByteArrayInputStream(process.getErrorStream().readAllBytes());
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String line;
+            String errorstring = "";
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+                //System.out.println(line);
+                errorstring+=line + "\n";
             }
+            tab[1] = errorstring;
             br.close();
 
         } catch (IOException e) {
@@ -56,6 +64,7 @@ public class Execution {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return tab;
 
     }
 

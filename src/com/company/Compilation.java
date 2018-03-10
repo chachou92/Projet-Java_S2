@@ -25,7 +25,8 @@ public class Compilation {
             try{
                 //Compile le projet de nom "nomProjet"
                 Runtime runtime = Runtime.getRuntime();
-                Process process = runtime.exec("javac " + nomProjet );
+                String [] s = {"/bin/sh","-c", "javac" , nomProjet ,"*.java"};
+                Process process = runtime.exec(s);
                 process.waitFor();
                 //Affiche la sortie d'erreur
                 InputStream in = new ByteArrayInputStream(process.getErrorStream().readAllBytes());
