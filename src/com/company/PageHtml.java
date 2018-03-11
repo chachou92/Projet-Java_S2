@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 
 /**
  * Gere la creation d'un fichier HTML contentant la synthetisation des resultats de l'etudiant.
@@ -31,11 +30,11 @@ public class PageHtml {
      * @param testPerf
      * @return Le fichier .html avec le contenu de la page HTML qui regroupe les resultats du projet.
      */
-    public File fichierHTML(String[] testU, String[] testPerf){
+    public File fichierHTML(String[] testU, String[] testPerf, long tmps){
         File file;
         String testUbis = testU[0].replaceAll("\n","<br>");
         String testPerfbis = testPerf[0].replaceAll("\n","<br>");
-        String txt = "<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><title>"+nomRepProjet+"</title><link rel=\"stylesheet\" href=\"style.css\"><script src=\"script.js\"></script></head><body><br>"+"Resultats des tests unitaires:<br><br>"+testUbis+"<br>Resultats des tests de performance:<br><br>"+ testPerfbis+"<br></body></html>";
+        String txt = "<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><title>"+nomRepProjet+"</title><link rel=\"stylesheet\" href=\"style.css\"><script src=\"script.js\"></script></head><body><br>-->Temps d'execution du programme:<br><br>"+tmps+" ms<br><br>-->Resultats des tests unitaires:<br><br>"+testUbis+"<br>-->Resultats des tests de performance:<br><br>"+ testPerfbis+"<br></body></html>";
         byte[] bytes = txt.getBytes();
 
         try {

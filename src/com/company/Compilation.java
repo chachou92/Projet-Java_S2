@@ -1,10 +1,13 @@
 package com.company;
 
 import java.io.*;
+
+/**
+ *Gere la compilation d'un projet java
+ */
 public class Compilation {
-    /**
-     *Gere la compilation d'un projet java
-     */
+
+
     public String nomProjet;
 
     /**

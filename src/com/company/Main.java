@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+/**
+ * Gere l'execution du programme de test.
+ */
 public class Main {
 
     /**
@@ -37,13 +39,19 @@ public class Main {
             }
         }
 
-        /*On genere une javadoc
+        /*File proj = new File(System.getProperty("user.dir")+"/"+nomRep+"/"+nom);
+        String[] listeF = proj.list();
+
+        //On genere une javadoc
         try{
-            Runtime runtime = Runtime.getRuntime();
-            String [] s = {"/bin/sh","javadoc *.java -d ", "./"+nomRep + "/"+ nom+ "/doc"};
-            Process process = runtime.exec(s);
-           // javadoc -d C:\javadoc\test -sourcepath C:\projects com.test
-            process.waitFor();
+            for (int i=0;i<listeF.length;i++){
+                String str = listeF[i];
+                System.out.println(str);
+                Runtime runtime = Runtime.getRuntime();
+                Process process = runtime.exec("javadoc -d "+proj.getPath()+ " -sourcepath "+proj.getPath()+" "+listeF[i]);
+                process.waitFor();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Erreur pour generer la javadoc");
@@ -110,6 +118,7 @@ public class Main {
 
         //On demande si on veut executer le programme, et si oui quelle classe doit etre execute
         int rep;
+        long tmps = 0;
         rep = JOptionPane.showConfirmDialog(null, "Voulez-vous exécuter le projet de l'étudiant?", "Projet Java", JOptionPane.YES_NO_OPTION);
         if (rep == JOptionPane.YES_OPTION) {
             //On execute la classe Main associée au projet
@@ -119,7 +128,7 @@ public class Main {
                 //String[] liste = repCourant.list();
                 String nomClass = JOptionPane.showInputDialog("Quelle classe voulez-vous exécuter?");
                 Execution e = new Execution(p, nomClass);
-                e.tempeExecution();
+                tmps= e.tempeExecution();
             }
         }
         if (rep == JOptionPane.NO_OPTION) {
@@ -153,7 +162,7 @@ public class Main {
 
         //PAGE HTML
         PageHtml pageHtml=new PageHtml(nomRep);
-        pageHtml.fichierHTML(tabU,tab);
+        pageHtml.fichierHTML(tabU,tab,tmps);
 
 
     }

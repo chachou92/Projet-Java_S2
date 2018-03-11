@@ -1,11 +1,11 @@
 package com.company;
 
 import java.io.*;
-
+/**
+ * Gere l'execution d'un fichier java
+ */
 public class Execution {
-    /**
-     * Gere l'execution d'un fichier java
-     */
+
     public String nomProgramme;
 
     String classpath;
